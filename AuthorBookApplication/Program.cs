@@ -1,8 +1,11 @@
 
 using AuthorBookApplication.Data;
+using AuthorBookApplication.Mappers;
 using AuthorBookApplication.Repositories;
 using AuthorBookApplication.Services;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace AuthorBookApplication
 {
@@ -13,6 +16,7 @@ namespace AuthorBookApplication
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddDbContext<AuthorBookContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnString"));
@@ -20,13 +24,17 @@ namespace AuthorBookApplication
 
             builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddTransient<IBookService,BookService>();
-            builder.Services.AddTransient<IBookRepository,BookRepository>();
             builder.Services.AddTransient<IAuthorService, AuthorService>();
-            builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
             builder.Services.AddTransient<IAuthorDetailsService, AuthorDetailsService>();
-            builder.Services.AddTransient<IAuthorDetailsRepository, AuthorDetailsRepository>();
 
             builder.Services.AddControllers();
+
+            //Ignore Cycles
+
+            builder.Services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -43,7 +51,6 @@ namespace AuthorBookApplication
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

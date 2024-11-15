@@ -7,7 +7,5 @@
         public void Delete(T entity);
         public T GetById(int id);
         public IQueryable<T> Get();
-        public List<T> GetAll();
-
     }
 }

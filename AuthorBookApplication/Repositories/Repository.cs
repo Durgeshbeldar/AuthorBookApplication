@@ -31,16 +31,13 @@ namespace AuthorBookApplication.Repositories
             return _table.AsQueryable();
         }
 
+        // This Method is Optional We Can Do This By Get() Method As Well in Service Layer.
         public T GetById(int id)
         {
             return _table.Find(id);
         }
 
-        public List<T> GetAll()
-        {
-            var query = Get();
-            return query.ToList();
-        }
+
         public T Update(T entity)
         {
             _table.Update(entity);

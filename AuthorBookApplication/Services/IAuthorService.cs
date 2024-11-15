@@ -1,13 +1,15 @@
-﻿using AuthorBookApplication.Models;
+﻿using AuthorBookApplication.DTOs;
+using AuthorBookApplication.Models;
 
 namespace AuthorBookApplication.Services
 {
     public interface IAuthorService
     {
-        public List<Author> GetAuthors();
-        public Author GetAuthor(int id);
-        public void AddAuthor(Author author);
+        public List<AuthorDto> GetAuthors();
+        public AuthorDto GetAuthor(int id);
+        public int  AddAuthor(AuthorDto authorDto);
         public bool DeleteAuthor(int id);
-        public Author UpdateAuthor(Author author);
+        public AuthorDto UpdateAuthor(AuthorDto authorDto);
+        public AuthorDto FindAuthorByName(string name); 
     }
 }

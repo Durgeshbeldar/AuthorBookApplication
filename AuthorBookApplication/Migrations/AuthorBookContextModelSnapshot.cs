@@ -54,7 +54,7 @@ namespace AuthorBookApplication.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("AuthorId")
+                    b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("City")
@@ -72,7 +72,8 @@ namespace AuthorBookApplication.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[AuthorId] IS NOT NULL");
 
                     b.ToTable("AuthorDetails");
                 });
@@ -110,23 +111,24 @@ namespace AuthorBookApplication.Migrations
                     b.HasOne("AuthorBookApplication.Models.Author", "Author")
                         .WithOne("AuthorDetails")
                         .HasForeignKey("AuthorBookApplication.Models.AuthorDetails", "AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Author");
                 });
 
             modelBuilder.Entity("AuthorBookApplication.Models.Book", b =>
                 {
-                    b.HasOne("AuthorBookApplication.Models.Author", null)
+                    b.HasOne("AuthorBookApplication.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("AuthorBookApplication.Models.Author", b =>
                 {
-                    b.Navigation("AuthorDetails")
-                        .IsRequired();
+                    b.Navigation("AuthorDetails");
 
                     b.Navigation("Books");
                 });

@@ -1,20 +1,26 @@
-﻿using AuthorBookApplication.Models;
+﻿using AuthorBookApplication.DTOs;
+using AuthorBookApplication.Models;
 using AuthorBookApplication.Repositories;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthorBookApplication.Services
 {
     public class BookService : IBookService
     {
         private readonly IRepository<Book> _bookRepository;
-
-        public BookService(IRepository<Book> bookRepository)
+        private readonly IMapper _mapper;
+        public BookService(IRepository<Book> bookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _mapper = mapper;
         }
 
-        public void AddBook(Book book)
+        public int AddBook(BookDto bookDto)
         {
+            Book book = _mapper.Map<Book>(bookDto);
             _bookRepository.Add(book);
+            return book.Id;
         }
 
         public bool DeleteBook(int id)
@@ -28,19 +34,46 @@ namespace AuthorBookApplication.Services
             return false;
         }
 
-        public Book GetBook(int id)
+        public BookDto GetBook(int id)
         {
-            return _bookRepository.GetById(id);
+            var book = _bookRepository.Get().Include(b => b.Author).Where(b => b.Id == id).FirstOrDefault();    
+            var bookDto = _mapper.Map<BookDto>(book);
+            return bookDto;
         }
 
-        public List<Book> GetBooks()
+        public List<BookDto> GetBooks()
         {
-            return _bookRepository.GetAll();
+            var books =  _bookRepository.Get().Include(b=> b.Author).ToList();
+            List<BookDto> bookDtos = _mapper.Map<List<BookDto>>(books);
+            return bookDtos;
         }
 
-        public Book UpdateBook(Book book)
+        public List<BookDto> FindBookByAuthorId(int authorId)
         {
-            return _bookRepository.Update(book);
+            var books = _bookRepository.Get().Include(b => b.Author).Where(b=> b.AuthorId == authorId).ToList();
+            List<BookDto> bookDtos = _mapper.Map<List<BookDto>>(books);
+            return bookDtos;
+        }
+
+        public AuthorDto FindAuthorByBookId(int bookId)
+        {
+            var book = _bookRepository.Get().Include(b => b.Author).Where(b=> b.Id == bookId).FirstOrDefault();
+            var author = book.Author;
+            author.Books = _bookRepository.Get().Where(b=> b.AuthorId == author.Id).ToList();
+            var authorDto = _mapper.Map<AuthorDto>(author);
+            return authorDto;
+
+        }
+        public BookDto UpdateBook(BookDto bookDto)
+        {
+            var book = _mapper.Map<Book>(bookDto);
+            var existingBook = _bookRepository.Get().Include(b=> b.Author).AsNoTracking().FirstOrDefault(b => b.Id == book.Id);
+            if(existingBook != null)
+            {
+                _bookRepository.Update(book);
+                return bookDto;
+            }
+            return _mapper.Map<BookDto>(existingBook);
         }
     }
 }

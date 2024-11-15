@@ -1,4 +1,5 @@
-﻿using AuthorBookApplication.Models;
+﻿using AuthorBookApplication.DTOs;
+using AuthorBookApplication.Models;
 using AuthorBookApplication.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -9,49 +10,57 @@ namespace AuthorBookApplication.Controllers
     [ApiController]
     public class AuthorDetailsController : ControllerBase
     {
-        private readonly IAuthorDetailsService _service;
+        private readonly IAuthorDetailsService _authorDetailService;
 
         public AuthorDetailsController(IAuthorDetailsService service)
         {
-            _service = service;
+            _authorDetailService = service;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
-            var authorDetails = _service.GetAuthorDetails();
+            var authorDetails = _authorDetailService.GetAuthorDetails();
+            if (authorDetails == null)
+                return NotFound("Author Details For Authors Not Found.");
             return Ok(authorDetails);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var authorDetail = _service.GetAuthorDetails(id);
+            var authorDetail = _authorDetailService.GetAuthorDetail(id);
             if (authorDetail == null)
                 return NotFound("Author Detail Not Found");
             return Ok(authorDetail);
         }
 
-        [HttpPost]
-        public IActionResult Post(AuthorDetails authorDetail)
+        [HttpGet("GetAuthorDetailsByAuthorId/{authorId}")]
+        public IActionResult GetAuhorDetailsByAuthorId(int authorId)
         {
-            _service.AddAuthorDetails(authorDetail);
+            var authorDetail = _authorDetailService.FindAuthorDetailsByAuthorId(authorId);
+            if (authorDetail == null)
+                return NotFound("Author Detail Not Found");
+            return Ok(authorDetail);
+        }
+        [HttpPost]
+        public IActionResult Add(AuthorDetailsDto authorDetailDto)
+        {
+            _authorDetailService.AddAuthorDetails(authorDetailDto);
             return Ok("Author Detail Added Successfully");
         }
 
         [HttpPut]
-        public IActionResult Put(AuthorDetails updatedAuthorDetail)
+        public IActionResult Update(AuthorDetailsDto updatedAuthorDetailDto)
         {
-            var authorDetails = _service.UpdateAuthorDetails(updatedAuthorDetail);
-            if(authorDetails == null)
-            return NotFound("Author Detail Not Found");
+            var authorDetails = _authorDetailService.UpdateAuthorDetails(updatedAuthorDetailDto);
             return Ok(authorDetails);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if (_service.DeleteAuthorDetails(id))
+            if (_authorDetailService.DeleteAuthorDetails(id))
                 return Ok("Author Detail Deleted Successfully");
             return NotFound("Author Detail Not Found");
         }

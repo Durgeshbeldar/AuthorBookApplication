@@ -12,10 +12,8 @@ namespace AuthorBookApplication.Models
         public int Age { get; set; }
         public string Gender { get; set; }
 
-        // Foreign Key
-
         [ForeignKey("Author")]
-        public int AuthorId { get; set; }
-        public  Author Author { get; set; }
+        public int? AuthorId { get; set; }
+        public  Author? Author { get; set; }
     }
 }

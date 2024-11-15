@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ASUS\\source\\repos\\AuthorBookApplication\\AuthorBookApplication\\AuthorBookApplication.csproj": {}
+    "S:\\Office Work\\Monocept Training\\C drive Projects\\AuthorBookApplication\\AuthorBookApplication\\AuthorBookApplication.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ASUS\\source\\repos\\AuthorBookApplication\\AuthorBookApplication\\AuthorBookApplication.csproj": {
+    "S:\\Office Work\\Monocept Training\\C drive Projects\\AuthorBookApplication\\AuthorBookApplication\\AuthorBookApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\source\\repos\\AuthorBookApplication\\AuthorBookApplication\\AuthorBookApplication.csproj",
+        "projectUniqueName": "S:\\Office Work\\Monocept Training\\C drive Projects\\AuthorBookApplication\\AuthorBookApplication\\AuthorBookApplication.csproj",
         "projectName": "AuthorBookApplication",
-        "projectPath": "C:\\Users\\ASUS\\source\\repos\\AuthorBookApplication\\AuthorBookApplication\\AuthorBookApplication.csproj",
+        "projectPath": "S:\\Office Work\\Monocept Training\\C drive Projects\\AuthorBookApplication\\AuthorBookApplication\\AuthorBookApplication.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\source\\repos\\AuthorBookApplication\\AuthorBookApplication\\obj\\",
+        "outputPath": "S:\\Office Work\\Monocept Training\\C drive Projects\\AuthorBookApplication\\AuthorBookApplication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -46,6 +45,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -86,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

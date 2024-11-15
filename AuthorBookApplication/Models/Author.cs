@@ -9,9 +9,9 @@ namespace AuthorBookApplication.Models
         public string Name { get; set; }
         public string Email { get; set; }
 
-        // Navigation Property
-        public  List<Book> Books { get; set; }
-        public  AuthorDetails AuthorDetails { get; set; }
+        // Navigation Properties For Books and AuthorDetails
+        public  List<Book>? Books { get; set; }
+        public  AuthorDetails? AuthorDetails { get; set; }
 
     }
 }

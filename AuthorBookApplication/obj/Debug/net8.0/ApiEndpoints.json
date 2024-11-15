@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "AuthorBookApplication.Controllers.AuthorController",
-    "Method": "Get",
+    "Method": "GetAll",
     "RelativePath": "api/Author",
     "HttpMethod": "GET",
     "IsController": true,
@@ -11,15 +11,15 @@
   },
   {
     "ContainingType": "AuthorBookApplication.Controllers.AuthorController",
-    "Method": "Post",
+    "Method": "Add",
     "RelativePath": "api/Author",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "author",
-        "Type": "AuthorBookApplication.Models.Author",
+        "Name": "authorDto",
+        "Type": "AuthorBookApplication.DTOs.AuthorDto",
         "IsRequired": true
       }
     ],
@@ -27,15 +27,15 @@
   },
   {
     "ContainingType": "AuthorBookApplication.Controllers.AuthorController",
-    "Method": "Put",
+    "Method": "Update",
     "RelativePath": "api/Author",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "updatedAuthor",
-        "Type": "AuthorBookApplication.Models.Author",
+        "Name": "updatedAuthorDto",
+        "Type": "AuthorBookApplication.DTOs.AuthorDto",
         "IsRequired": true
       }
     ],
@@ -74,8 +74,24 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "AuthorBookApplication.Controllers.AuthorController",
+    "Method": "GetByName",
+    "RelativePath": "api/Author/name/{name}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AuthorBookApplication.Controllers.AuthorDetailsController",
-    "Method": "Get",
+    "Method": "GetAll",
     "RelativePath": "api/AuthorDetails",
     "HttpMethod": "GET",
     "IsController": true,
@@ -85,15 +101,15 @@
   },
   {
     "ContainingType": "AuthorBookApplication.Controllers.AuthorDetailsController",
-    "Method": "Post",
+    "Method": "Add",
     "RelativePath": "api/AuthorDetails",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "authorDetail",
-        "Type": "AuthorBookApplication.Models.AuthorDetails",
+        "Name": "authorDetailDto",
+        "Type": "AuthorBookApplication.DTOs.AuthorDetailsDto",
         "IsRequired": true
       }
     ],
@@ -101,15 +117,15 @@
   },
   {
     "ContainingType": "AuthorBookApplication.Controllers.AuthorDetailsController",
-    "Method": "Put",
+    "Method": "Update",
     "RelativePath": "api/AuthorDetails",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "updatedAuthorDetail",
-        "Type": "AuthorBookApplication.Models.AuthorDetails",
+        "Name": "updatedAuthorDetailDto",
+        "Type": "AuthorBookApplication.DTOs.AuthorDetailsDto",
         "IsRequired": true
       }
     ],
@@ -148,8 +164,24 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "AuthorBookApplication.Controllers.AuthorDetailsController",
+    "Method": "GetAuhorDetailsByAuthorId",
+    "RelativePath": "api/AuthorDetails/GetAuthorDetailsByAuthorId/{authorId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "authorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AuthorBookApplication.Controllers.BookController",
-    "Method": "Get",
+    "Method": "GetAll",
     "RelativePath": "api/Book",
     "HttpMethod": "GET",
     "IsController": true,
@@ -159,15 +191,15 @@
   },
   {
     "ContainingType": "AuthorBookApplication.Controllers.BookController",
-    "Method": "Post",
+    "Method": "Add",
     "RelativePath": "api/Book",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "book",
-        "Type": "AuthorBookApplication.Models.Book",
+        "Name": "bookDto",
+        "Type": "AuthorBookApplication.DTOs.BookDto",
         "IsRequired": true
       }
     ],
@@ -175,15 +207,15 @@
   },
   {
     "ContainingType": "AuthorBookApplication.Controllers.BookController",
-    "Method": "Put",
+    "Method": "Update",
     "RelativePath": "api/Book",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "updatedBook",
-        "Type": "AuthorBookApplication.Models.Book",
+        "Name": "updatedBookDto",
+        "Type": "AuthorBookApplication.DTOs.BookDto",
         "IsRequired": true
       }
     ],
@@ -222,24 +254,35 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AuthorBookApplication.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "AuthorBookApplication.Controllers.BookController",
+    "Method": "FindAuthorByBookId",
+    "RelativePath": "api/Book/GetAuthorByBookId/{bookId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
+    "Parameters": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[AuthorBookApplication.WeatherForecast, AuthorBookApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "bookId",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuthorBookApplication.Controllers.BookController",
+    "Method": "FindBooksByAuthorId",
+    "RelativePath": "api/Book/GetBooksByAuthorId/{authorId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "authorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
