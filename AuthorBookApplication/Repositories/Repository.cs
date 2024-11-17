@@ -26,12 +26,12 @@ namespace AuthorBookApplication.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<T> Get()
+        public IQueryable<T> GetAll()
         {
             return _table.AsQueryable();
         }
 
-        // This Method is Optional We Can Do This By Get() Method As Well in Service Layer.
+        // This Method is Optional We Can Do This By GetAll() Method As Well in Service Layer.
         public T GetById(int id)
         {
             return _table.Find(id);

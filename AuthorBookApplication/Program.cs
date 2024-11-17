@@ -1,5 +1,6 @@
 
 using AuthorBookApplication.Data;
+using AuthorBookApplication.Exceptions;
 using AuthorBookApplication.Mappers;
 using AuthorBookApplication.Repositories;
 using AuthorBookApplication.Services;
@@ -38,6 +39,7 @@ namespace AuthorBookApplication
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddExceptionHandler<AppExceptionHandler>();
 
             var app = builder.Build();
 
@@ -47,6 +49,8 @@ namespace AuthorBookApplication
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseExceptionHandler(_ => { });
 
             app.UseHttpsRedirection();
 

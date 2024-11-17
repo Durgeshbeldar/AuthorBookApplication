@@ -1,4 +1,5 @@
 ﻿using AuthorBookApplication.DTOs;
+using AuthorBookApplication.Exceptions;
 using AuthorBookApplication.Models;
 using AuthorBookApplication.Repositories;
 using AutoMapper;
@@ -32,25 +33,31 @@ namespace AuthorBookApplication.Services
                 _authorDetailsRepository.Delete(authorDetails);
                 return true;
             }
-            return false;
+            throw new AuthorDetailsNotFoundException($"Author Details Not Found with Given Id : {id}");
         }
 
         public AuthorDetailsDto GetAuthorDetail(int id)
         {
-            var authorDetail =  _authorDetailsRepository.Get().Include(ad => ad.Author).FirstOrDefault(ad => ad.Id == id);
+            var authorDetail =  _authorDetailsRepository.GetAll().Include(ad => ad.Author).FirstOrDefault(ad => ad.Id == id);
+            if (authorDetail == null)
+                throw new AuthorDetailsNotFoundException($"Author Details Not Found with Given Id : {id}");
             var authorDetailDto = _mapper.Map<AuthorDetailsDto>(authorDetail);
             return authorDetailDto;
         }
 
         public AuthorDetailsDto FindAuthorDetailsByAuthorId(int authorId)
         {
-            var authorDetail = _authorDetailsRepository.Get().Include(ad => ad.Author).FirstOrDefault(ad => ad.AuthorId == authorId);
+            var authorDetail = _authorDetailsRepository.GetAll().Include(ad => ad.Author).FirstOrDefault(ad => ad.AuthorId == authorId);
+            if (authorDetail == null)
+                throw new AuthorDetailsNotFoundException($"Author Details Not Found with Given Author Id : {authorId}");
             var authorDetailDto = _mapper.Map<AuthorDetailsDto>(authorDetail);
             return authorDetailDto;
         }
         public List<AuthorDetailsDto> GetAuthorDetails()
         {
-            var authorDetails =  _authorDetailsRepository.Get().Include(ad=> ad.Author).ToList();
+            var authorDetails =  _authorDetailsRepository.GetAll().Include(ad=> ad.Author).ToList();
+            if (authorDetails == null)
+                throw new AuthorDetailsNotFoundException($"Author Details Not Found");
             List<AuthorDetailsDto> authorDetailsDtos = _mapper.Map<List<AuthorDetailsDto>>(authorDetails);
             return authorDetailsDtos;
         }
@@ -58,13 +65,13 @@ namespace AuthorBookApplication.Services
         public AuthorDetailsDto UpdateAuthorDetails(AuthorDetailsDto authorDetailsDto)
         {
             var authorDetails = _mapper.Map<AuthorDetails>(authorDetailsDto);
-            var existingAuthorDetails = _authorDetailsRepository.Get().Include(a=> a.Author).AsNoTracking().FirstOrDefault(ad => ad.Id == authorDetails.Id);
+            var existingAuthorDetails = _authorDetailsRepository.GetAll().Include(a=> a.Author).AsNoTracking().FirstOrDefault(ad => ad.Id == authorDetails.Id);
             if (existingAuthorDetails != null)
             {
                 _authorDetailsRepository.Update(authorDetails);
                 return authorDetailsDto;
             }
-            return _mapper.Map<AuthorDetailsDto>(existingAuthorDetails);
+            throw new AuthorDetailsNotFoundException($"Author Details Not Found with Given Id : {authorDetails.Id}");
         }
     }
 }

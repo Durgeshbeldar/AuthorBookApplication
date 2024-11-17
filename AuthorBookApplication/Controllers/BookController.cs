@@ -22,8 +22,6 @@ namespace AuthorBookApplication.Controllers
         public IActionResult GetAll()
         {
             var bookDtos = _bookService.GetBooks();
-            if (bookDtos == null)
-                return NotFound("Books Not Found. Please Add The Books");
             return Ok(bookDtos);
         }
 
@@ -31,31 +29,16 @@ namespace AuthorBookApplication.Controllers
         public IActionResult GetById(int id)
         {
             var book = _bookService.GetBook(id);
-            if (book == null)
-                return NotFound($"Book Not Found with Id : {id}");
             return Ok(book);
         }
 
         // For Understanding Purposes I have Written Route Path in a Descriptive Way
 
-        [HttpGet("GetBooksByAuthorId/{authorId}")]
+        [HttpGet("Author/{authorId}")]
         public IActionResult FindBooksByAuthorId(int authorId)
         {
             var bookDtos = _bookService.FindBookByAuthorId(authorId);
-            if (bookDtos == null)
-                return NotFound($"Book Or Books Not Found With Given AuthorId : {authorId}");
             return Ok(bookDtos);
-        }
-
-        // For Understanding Purposes I have Written Route Path in a Descriptive Way
-
-        [HttpGet("GetAuthorByBookId/{bookId}")]
-        public IActionResult FindAuthorByBookId(int bookId)
-        {
-            var authorDto = _bookService.FindAuthorByBookId(bookId);
-            if (authorDto == null)
-                return NotFound("Author Not Found");
-            return Ok(authorDto);
         }
 
         [HttpPost]
@@ -75,9 +58,7 @@ namespace AuthorBookApplication.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if (_bookService.DeleteBook(id))
-                return Ok("Book Deleted Successfully");
-            return NotFound($"Book Not Found with the bookId : {id}");
+              return Ok($"Book Deleted Successfully with Id : {id}");
         }
     }
 }

@@ -21,8 +21,6 @@ namespace AuthorBookApplication.Controllers
         public IActionResult GetAll()
         {
             var authorDetails = _authorDetailService.GetAuthorDetails();
-            if (authorDetails == null)
-                return NotFound("Author Details For Authors Not Found.");
             return Ok(authorDetails);
         }
 
@@ -30,17 +28,13 @@ namespace AuthorBookApplication.Controllers
         public IActionResult GetById(int id)
         {
             var authorDetail = _authorDetailService.GetAuthorDetail(id);
-            if (authorDetail == null)
-                return NotFound("Author Detail Not Found");
             return Ok(authorDetail);
         }
 
-        [HttpGet("GetAuthorDetailsByAuthorId/{authorId}")]
+        [HttpGet("Author/{authorId}")]
         public IActionResult GetAuhorDetailsByAuthorId(int authorId)
         {
             var authorDetail = _authorDetailService.FindAuthorDetailsByAuthorId(authorId);
-            if (authorDetail == null)
-                return NotFound("Author Detail Not Found");
             return Ok(authorDetail);
         }
         [HttpPost]

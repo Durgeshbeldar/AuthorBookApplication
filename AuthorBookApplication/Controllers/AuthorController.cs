@@ -11,17 +11,17 @@ namespace AuthorBookApplication.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorService _authorService;
-        public AuthorController(IAuthorService service)
+        private readonly IBookService _bookService;
+        public AuthorController(IAuthorService service, IBookService bookService)
         {
             _authorService = service;
+            _bookService = bookService;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             var authorDtos = _authorService.GetAuthors();
-            if(authorDtos == null)
-                return NotFound("Authors Not Found, Please Add Authors.");
             return Ok(authorDtos);
         }
 
@@ -29,8 +29,6 @@ namespace AuthorBookApplication.Controllers
         public IActionResult GetById(int id)
         {
             var author = _authorService.GetAuthor(id);
-            if (author == null)
-                return NotFound("Author Not Found");
             return Ok(author);
         }
 
@@ -38,8 +36,15 @@ namespace AuthorBookApplication.Controllers
         public IActionResult GetByName(string name)
         {
             var authorDto = _authorService.FindAuthorByName(name);
-            if (authorDto == null)
-                return NotFound("Author Not Found");
+            return Ok(authorDto);
+        }
+
+        // For Understanding Purposes I have Written Route Path in a Descriptive Way
+
+        [HttpGet("book/{bookId}")]
+        public IActionResult FindAuthorByBookId(int bookId)
+        {
+            var authorDto = _bookService.FindAuthorByBookId(bookId);
             return Ok(authorDto);
         }
 
@@ -54,17 +59,13 @@ namespace AuthorBookApplication.Controllers
         public IActionResult Update(AuthorDto updatedAuthorDto)
         {
             var authorDto = _authorService.UpdateAuthor(updatedAuthorDto);
-            if (authorDto == null)
-                return NotFound("Author Not Found to Update");
             return Ok(authorDto);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if (_authorService.DeleteAuthor(id))
-                return Ok("Author Deleted Successfully");
-            return NotFound("Author Not Found");
+            return Ok("Author Deleted Successfully");
         }  
     }
 }

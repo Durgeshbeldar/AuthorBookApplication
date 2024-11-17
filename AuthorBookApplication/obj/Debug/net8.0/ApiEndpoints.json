@@ -75,6 +75,22 @@
   },
   {
     "ContainingType": "AuthorBookApplication.Controllers.AuthorController",
+    "Method": "FindAuthorByBookId",
+    "RelativePath": "api/Author/book/{bookId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bookId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuthorBookApplication.Controllers.AuthorController",
     "Method": "GetByName",
     "RelativePath": "api/Author/name/{name}",
     "HttpMethod": "GET",
@@ -166,7 +182,7 @@
   {
     "ContainingType": "AuthorBookApplication.Controllers.AuthorDetailsController",
     "Method": "GetAuhorDetailsByAuthorId",
-    "RelativePath": "api/AuthorDetails/GetAuthorDetailsByAuthorId/{authorId}",
+    "RelativePath": "api/AuthorDetails/Author/{authorId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -255,24 +271,8 @@
   },
   {
     "ContainingType": "AuthorBookApplication.Controllers.BookController",
-    "Method": "FindAuthorByBookId",
-    "RelativePath": "api/Book/GetAuthorByBookId/{bookId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "bookId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "AuthorBookApplication.Controllers.BookController",
     "Method": "FindBooksByAuthorId",
-    "RelativePath": "api/Book/GetBooksByAuthorId/{authorId}",
+    "RelativePath": "api/Book/Author/{authorId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

@@ -336,3 +336,4 @@ S:\Office Work\Monocept Training\C drive Projects\AuthorBookApplication\AuthorBo
 S:\Office Work\Monocept Training\C drive Projects\AuthorBookApplication\AuthorBookApplication\obj\Debug\net8.0\AuthorBookApplication.pdb
 S:\Office Work\Monocept Training\C drive Projects\AuthorBookApplication\AuthorBookApplication\obj\Debug\net8.0\AuthorBookApplication.genruntimeconfig.cache
 S:\Office Work\Monocept Training\C drive Projects\AuthorBookApplication\AuthorBookApplication\obj\Debug\net8.0\ref\AuthorBookApplication.dll
+S:\Office Work\Monocept Training\C drive Projects\AuthorBookApplication\AuthorBookApplication\obj\Debug\net8.0\AuthorBookApplication.sourcelink.json
