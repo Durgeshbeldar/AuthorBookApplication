@@ -58,6 +58,7 @@ namespace AuthorBookApplication.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+              _bookService.DeleteBook(id);
               return Ok($"Book Deleted Successfully with Id : {id}");
         }
     }
